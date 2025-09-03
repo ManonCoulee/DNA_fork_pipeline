@@ -50,7 +50,7 @@ def get_targets():
     if config["steps"]["annotation"]:
         targets["anno"]=[
             expand(os.path.normpath(OUTPUT_DIR + "/Peakcalling/{sample_name}/{sample_name}.bedgraph"),sample_name=SAMPLE_NAME),
-            expand(os.path.normpath(OUTPUT_DIR + "/Peakcalling/{treatment_name}/SEACR/{treatment_name}.{mode}.bed"),treatment_name=TREATMENT_NAME,mode=config["seacr_parameters"]["mode"])
+           # expand(os.path.normpath(OUTPUT_DIR + "/Peakcalling/{treatment_name}/SEACR/{treatment_name}.{mode}.bed"),treatment_name=TREATMENT_NAME,mode=config["seacr_parameters"]["mode"])
         ]
     #print(targets)
     return targets

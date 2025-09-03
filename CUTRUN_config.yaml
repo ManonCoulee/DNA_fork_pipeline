@@ -1,0 +1,43 @@
+### Pipeline options
+
+# Input parameters
+input_format: "fastq" #fastq or bam (aligned bam)
+
+# Select which parts of the pipeline should be run
+steps:
+  split_strand_analysis: false #annotation on split strand with SEACR
+  ratio_enrichment: false #utilization of OKseqHMM
+  annotation: true #annotation on all strand with SEACR
+
+# Output parameters
+output_dir: "/mnt/beegfs02/scratch/m_coulee/H3K9me3_analysis"
+
+# Path to design file
+design: "/home/m_coulee/Post-doc/H3K9me3_pipeline/H3K9me3_design.csv"
+
+# References information
+references:
+  genome_fasta: "/mnt/beegfs02/database/bioinfo/Index_DB/Fasta/Ensembl/GRCm39.109/mus_musculus.GRCm39.109.dna.fasta"
+  genome: "mm39"
+  chromosomes: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', 'MT', 'X', 'Y']
+  chr_size: "/home/m_coulee/annotation/mm39.chrom.sizes.txt"
+  GTF: "/home/mcoulee/Documents/Annotations/Mouse/GRCm39.109/Mus_musculus.GRCm39.114.gtf"
+  IZ: "/home/mcoulee/Documents/H3K9me3_analysis/OKseq/E14_1kb_10cut_sm10_remNAN.bed"
+
+# Tools parameters
+trimgalore_parameters:
+  length: 100
+  quality: 10
+
+seacr_parameters:
+  mode: "stringent" #stringent or relaxed
+  normalisation: "non" #norm (used if you have IgG) or non
+  igg: "true" #true or false
+
+okseqhmm_parameters:
+  threshold: 10
+  binSize: 1000 # min 1000
+  winS: 15
+
+graph_parameters:
+  distance: 50000

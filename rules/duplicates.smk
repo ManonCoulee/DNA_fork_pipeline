@@ -6,7 +6,7 @@ Rule for remove duplicates with MarkDuplicates
 
 rule readgroup:
     input: 
-        os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_unmarked.bam")
+        os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}_unmarked.bam")
     output:
         os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_unmarked_RG.bam"),
     resources:

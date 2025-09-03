@@ -50,22 +50,22 @@ OKseqHMM <- function(bamfile,chrsizes,fileOut, thresh, winS, binSize,mappedReads
       print("This bam is pair-end.")
       print("Seperating the forward strand bam.")
 
-      system(paste0("samtools view -b -f 128 -F 16 -@ 4 ",bamfile," > a.fwd1.bam"))
-      system(paste0("samtools view -b -f 80 -@ 4 ",bamfile," > a.fwd2.bam"))
+      system(paste0("samtools view -b -f 128 -F 16 -@ 4 ",bamfile," > ",fileOut,".fwd1.bam"))
+      system(paste0("samtools view -b -f 80 -@ 4 ",bamfile," > ",fileOut,".fwd2.bam"))
       # combine the temporary files
-      system(paste0("samtools merge -f ",fileOut,"_fwd.bam a.fwd1.bam a.fwd2.bam"))
+      system(paste0("samtools merge -f ",fileOut,"_fwd.bam ",fileOut,".fwd1.bam ",fileOut,".fwd2.bam"))
       system(paste0("samtools index ",fileOut,"_fwd.bam"))
       # remove the temporary files
-      system(paste0("rm a.fwd*.bam"))
+      system(paste0("rm ",outdir,".fwd*.bam"))
 
       print("Seperating the reverse strand bam.")
-      system(paste0("samtools view -b -f 144 -@ 4 ",bamfile," > a.rev1.bam"))
-      system(paste0("samtools view -b -f 64 -F 16 -@ 4 ",bamfile," > a.rev2.bam"))
+      system(paste0("samtools view -b -f 144 -@ 4 ",bamfile," > ",fileOut,".rev1.bam"))
+      system(paste0("samtools view -b -f 64 -F 16 -@ 4 ",bamfile," > ",fileOut,".rev2.bam"))
       # merge the temporary files
-      system(paste0("samtools merge -f ",fileOut,"_rev.bam a.rev1.bam a.rev2.bam"))
+      system(paste0("samtools merge -f ",fileOut,"_rev.bam ",fileOut,".rev1.bam ",fileOut,".rev2.bam"))
       system(paste0("samtools index ",fileOut,"_rev.bam"))
       # remove temporary files
-      system(paste0("rm a.rev*.bam"))
+      system(paste0("rm ",outdir,".rev*.bam"))
     }
     else
     {

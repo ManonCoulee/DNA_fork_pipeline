@@ -48,7 +48,7 @@ rule samtools_sort:
     input:
         os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_unsorted.bam")
     output:
-        os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_unmarked.bam")
+        os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}_unmarked.bam")
     conda:
         CONDA_ENV_SAMTOOLS
     threads: 6

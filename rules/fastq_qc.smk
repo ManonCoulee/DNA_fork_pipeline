@@ -16,7 +16,9 @@ rule fastq_qc:
     params:
         outdir = os.path.normpath(OUTPUT_DIR + "/Quality_Control/Fastqc/{sample_name}/")
     resources:
-	    partition="shortq"
+	    partition="longq",
+	    mem_mb=30720,
+	    time_min=10079
     conda:
         CONDA_ENV_FASTQC
     shell:

@@ -17,7 +17,9 @@ rule reports:
         length = config["cutadapt_parameters"]["length"],
         quality = config["cutadapt_parameters"]["quality"]
     resources:
-	    partition="shortq"
+	    partition="longq",
+	    mem_mb=30720,
+	    time_min=10079
     conda:
         CONDA_ENV_SAMTOOLS
     shell:

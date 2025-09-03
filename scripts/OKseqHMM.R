@@ -65,7 +65,7 @@ OKseqHMM <- function(bamfile,chrsizes,fileOut, thresh, winS, binSize,mappedReads
       system(paste0("samtools merge -f ",fileOut,"_rev.bam ",fileOut,".rev1.bam ",fileOut,".rev2.bam"))
       system(paste0("samtools index ",fileOut,"_rev.bam"))
       # remove temporary files
-      system(paste0("rm ",outdir,".rev*.bam"))
+      system(paste0("rm ",fileOut,".rev*.bam"))
     }
     else
     {

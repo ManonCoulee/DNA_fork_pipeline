@@ -56,7 +56,7 @@ OKseqHMM <- function(bamfile,chrsizes,fileOut, thresh, winS, binSize,mappedReads
       system(paste0("samtools merge -f ",fileOut,"_fwd.bam ",fileOut,".fwd1.bam ",fileOut,".fwd2.bam"))
       system(paste0("samtools index ",fileOut,"_fwd.bam"))
       # remove the temporary files
-      system(paste0("rm ",outdir,".fwd*.bam"))
+      system(paste0("rm ",fileOut,".fwd*.bam"))
 
       print("Seperating the reverse strand bam.")
       system(paste0("samtools view -b -f 144 -@ 4 ",bamfile," > ",fileOut,".rev1.bam"))

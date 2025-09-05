@@ -229,7 +229,7 @@ OKseqHMM <- function(bamfile,chrsizes,fileOut, thresh, winS, binSize,mappedReads
 
     # 1kb RFD:
     rfd <- (c-w)/(w+c)
-    rfd[is.na(rfd)] <- 0
+    #rfd[is.na(rfd)] <- 0
     rfd[w<thresh & c<thresh] <- 0
     rfd[rfd > 1] <- 1
     rfd[rfd < -1] <- -1
@@ -265,7 +265,7 @@ OKseqHMM <- function(bamfile,chrsizes,fileOut, thresh, winS, binSize,mappedReads
 
     print(paste("cutoff is :",thresh))
     rfd <- (cs-ws)/(ws+cs)
-    rfd[is.na(rfd)] <- 0
+    #rfd[is.na(rfd)] <- 0
     rfd[ws<thresh & cs<thresh] <- 0
     rfd[rfd > 1] <- 1
     rfd[rfd < -1] <- -1

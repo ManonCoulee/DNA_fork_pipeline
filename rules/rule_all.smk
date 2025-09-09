@@ -1,29 +1,21 @@
 def get_targets():
     targets = {}
     if config["input_format"] == "fastq":
-        #targets["bowtie_index"]=[
-        #    expand(os.path.normpath(OUTPUT_DIR + "/tmp/{genome}/{genome}.1.bt2"),genome=GENOME),
-        #    expand(os.path.normpath(OUTPUT_DIR + "/tmp/{genome}/{genome}.2.bt2"),genome=GENOME),
-        #    expand(os.path.normpath(OUTPUT_DIR + "/tmp/{genome}/{genome}.3.bt2"),genome=GENOME),
-        #    expand(os.path.normpath(OUTPUT_DIR + "/tmp/{genome}/{genome}.4.bt2"),genome=GENOME),
-        #    expand(os.path.normpath(OUTPUT_DIR + "/tmp/{genome}/{genome}.rev.1.bt2"),genome=GENOME),
-        #    expand(os.path.normpath(OUTPUT_DIR + "/tmp/{genome}/{genome}.rev.2.bt2"),genome=GENOME)
-        #]
         targets["fastq_qc"]=[
             expand(os.path.normpath(OUTPUT_DIR + "/Quality_Control/Fastqc/{sample_name}/{sample_name}_1_fastqc.html"), sample_name=SAMPLE_NAME),
             expand(os.path.normpath(OUTPUT_DIR + "/Quality_Control/Fastqc/{sample_name}/{sample_name}_1_fastqc.html"), sample_name=SAMPLE_NAME),
         ]
-        #targets["trimagalore_trim"]=[
-        #    expand(os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_1_val_1.fq.gz"),sample_name=SAMPLE_NAME),
-        #    expand(os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_2_val_2.fq.gz"),sample_name=SAMPLE_NAME)
-        #]
         targets["cutadapt_trim"]=[
             expand(os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_1_filtered.fq.gz"),sample_name=SAMPLE_NAME),
             expand(os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_2_filtered.fq.gz"),sample_name=SAMPLE_NAME)
         ]
+        targets["alignment"]=[
+            expand(os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}_unmarked.bam"), sample_name=SAMPLE_NAME),
+            expand(os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}_unmarked.bam.bai"), sample_name=SAMPLE_NAME)
+        ]
         targets["duplicates"]=[
-            expand(os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}.bam.bai"), sample_name=SAMPLE_NAME),
             expand(os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}.bam"),sample_name=SAMPLE_NAME),
+            expand(os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}.bam.bai"), sample_name=SAMPLE_NAME),
             expand(os.path.normpath(OUTPUT_DIR + "/Quality_Control/Duplicates/{sample_name}/{sample_name}_duplicate_metrics.txt"),sample_name=SAMPLE_NAME)
         ]
         targets["reports"]=[
@@ -32,13 +24,11 @@ def get_targets():
     
     if config["steps"]["split_strand_analysis"]:
         targets["strands"]=[
-            expand(os.path.normpath(OUTPUT_DIR + "/Peakcalling/reverse/{sample_name}/{sample_name}.bam"), sample_name=SAMPLE_NAME),
-            expand(os.path.normpath(OUTPUT_DIR + "/Peakcalling/forward/{sample_name}/{sample_name}.bam"),sample_name=SAMPLE_NAME),
-            expand(os.path.normpath(OUTPUT_DIR + "/Peakcalling/{strand}/{sample_name}/{sample_name}.bam.bai"),sample_name=SAMPLE_NAME,strand=STRAND),
-            expand(os.path.normpath(OUTPUT_DIR + "/Peakcalling/{strand}/{sample_name}/{sample_name}.bedgraph"),sample_name=SAMPLE_NAME,strand=STRAND),
-            expand(os.path.normpath(OUTPUT_DIR + "/Peakcalling/{strand}/{sample_name}/{sample_name}.bw"),sample_name=SAMPLE_NAME,strand=STRAND),
-            #expand(os.path.normpath(OUTPUT_DIR + "/Peakcalling/{strand}/SEACR/{treatment_name}/{treatment_name}.{mode}.bed"),treatment_name=TREATMENT_NAME, mode=config["seacr_parameters"]["mode"], strand=STRAND),
-            #expand(os.path.normpath(OUTPUT_DIR + "/Peakcalling/{strand}/SEACR/{treatment_name}/{treatment_name}_{mode}_results.txt"),treatment_name=TREATMENT_NAME, mode=config["seacr_parameters"]["mode"],strand=STRAND)
+            expand(os.path.normpath(OUTPUT_DIR + "/Strand/reverse/{sample_name}/{sample_name}.bam"), sample_name=SAMPLE_NAME),
+            expand(os.path.normpath(OUTPUT_DIR + "/Strand/forward/{sample_name}/{sample_name}.bam"),sample_name=SAMPLE_NAME),
+            expand(os.path.normpath(OUTPUT_DIR + "/Strand/{strand}/{sample_name}/{sample_name}.bam.bai"),sample_name=SAMPLE_NAME,strand=STRAND),
+            expand(os.path.normpath(OUTPUT_DIR + "/Strand/{strand}/{sample_name}/{sample_name}.bedgraph"),sample_name=SAMPLE_NAME,strand=STRAND),
+            expand(os.path.normpath(OUTPUT_DIR + "/Strand/{strand}/{sample_name}/{sample_name}.bw"),sample_name=SAMPLE_NAME,strand=STRAND)
         ]
 
     if config["steps"]["ratio_enrichment"]:
@@ -49,8 +39,7 @@ def get_targets():
     
     if config["steps"]["annotation"]:
         targets["anno"]=[
-            expand(os.path.normpath(OUTPUT_DIR + "/Peakcalling/{sample_name}/{sample_name}.bedgraph"),sample_name=SAMPLE_NAME),
-           # expand(os.path.normpath(OUTPUT_DIR + "/Peakcalling/{treatment_name}/SEACR/{treatment_name}.{mode}.bed"),treatment_name=TREATMENT_NAME,mode=config["seacr_parameters"]["mode"])
+            expand(os.path.normpath(OUTPUT_DIR + "/Peakcalling/{sample_name}/{sample_name}.bedgraph"),sample_name=SAMPLE_NAME)
         ]
     #print(targets)
     return targets

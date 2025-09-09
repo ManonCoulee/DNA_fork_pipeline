@@ -44,7 +44,7 @@ rule samtools_view:
         samtools view -h -b -@ {threads} -o {output} {input}
         """
 
-rule samtools_sort:
+rule unmarked_sort:
     input:
         os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_unsorted.bam")
     output:
@@ -59,4 +59,20 @@ rule samtools_sort:
     shell:
         """
         samtools sort -@ {threads} -o {output} {input}
+        """
+
+rule unmarked_index:
+    input:
+        os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}_unmarked.bam")
+    output:
+        os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}_unmarked.bam.bai")
+    conda:
+        CONDA_ENV_SAMTOOLS
+    resources:
+	    partition="longq",
+	    mem_mb=30720,
+	    time_min=10079
+    shell:
+        """
+        samtools index {input} {output}
         """

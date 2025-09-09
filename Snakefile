@@ -89,6 +89,7 @@ if config["input_format"] == "fastq":
     include: "rules/fastq_qc.smk"
     include: "rules/trimming_cutadapt.smk"
     include: "rules/alignment.smk"
+    include: "rules/transform_bam.smk"
     include: "rules/duplicates.smk"
     include: "rules/bam_report.smk"
 

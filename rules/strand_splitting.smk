@@ -15,7 +15,7 @@ rule strand_split:
         R = os.path.normpath(OUTPUT_DIR + "/Strand/reverse/{sample_name}/{sample_name}.bam"),
         F = os.path.normpath(OUTPUT_DIR + "/Strand/forward/{sample_name}/{sample_name}.bam")
     params:
-        outdir = os.path.normpath(OUTPUT_DIR + "/Strand")
+        outdir = os.path.normpath(OUTPUT_DIR + "/Strand/{sample_name}")
     conda:
         CONDA_ENV_SAMTOOLS
     threads: 6
@@ -23,14 +23,14 @@ rule strand_split:
 	    partition="mediumq"
     shell:
         """
-        samtools view -h -b -f 83 -@ {threads} -o {params.outdir}/{sample_name}.rev1.bam {input}
-        samtools view -h -b -f 163 -@ {threads} -o {params.outdir}/{sample_name}.rev2.bam {input}
-        samtools view -h -b -f 99 -@ 6 -o {params.outdir}/{sample_name}.fwd1.bam {input}
-        samtools view -h -b -f 147 -@ 6 -o {params.outdir}/{sample_name}.fwd2.bam {input}
-        samtools merge -f {output.F} {params.outdir}/{sample_name}.fwd1.bam ${params.outdir}/{sample_name}.fwd2.bam
-        samtools merge -f {output.R} {params.outdir}/{sample_name}.rev1.bam {params.outdir}/{sample_name}.rev2.bam
-        rm {params.outdir}/{sample_name}.fwd*.bam
-        rm {params.outdir}/{sample_name}.rev*.bam
+        samtools view -h -b -f 83 -@ {threads} -o {params.outdir}.rev1.bam {input}
+        samtools view -h -b -f 163 -@ {threads} -o {params.outdir}.rev2.bam {input}
+        samtools view -h -b -f 99 -@ 6 -o {params.outdir}.fwd1.bam {input}
+        samtools view -h -b -f 147 -@ 6 -o {params.outdir}.fwd2.bam {input}
+        samtools merge -f {output.F} {params.outdir}.fwd1.bam {params.outdir}.fwd2.bam
+        samtools merge -f {output.R} {params.outdir}.rev1.bam {params.outdir}.rev2.bam
+        rm {params.outdir}.fwd*.bam
+        rm {params.outdir}.rev*.bam
         """
 
 rule index:

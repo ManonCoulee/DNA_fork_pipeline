@@ -5,9 +5,9 @@ input_format: "fastq" #fastq or bam (aligned bam)
 
 # Select which parts of the pipeline should be run
 steps:
-  split_strand_analysis: false #annotation on split strand with SEACR
-  ratio_enrichment: false #utilization of OKseqHMM
-  annotation: true #annotation on all strand with SEACR
+  scarseq: false #analysis of scarseq data
+  okseq: false #utilization of OKseqHMM
+  cutrun: true #annotation of cut&run with SEACR
 
 # Output parameters
 output_dir: "/mnt/beegfs02/scratch/m_coulee/H3K9me3_analysis"

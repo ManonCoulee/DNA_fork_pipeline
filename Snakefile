@@ -84,20 +84,17 @@ rule all:
         "Pipeline finished!"
 
 if config["input_format"] == "fastq":
-    #if (os.path.exists(str(INDEX_DIR)) == False):
-    #    include: "rules/alignment_index.smk"
     include: "rules/fastq_qc.smk"
     include: "rules/trimming_cutadapt.smk"
     include: "rules/alignment.smk"
     include: "rules/duplicates.smk"
     include: "rules/bam_report.smk"
 
-if config["steps"]["split_strand_analysis"]:
+if config["steps"]["scarseq"]:
     include: "rules/strand_splitting.smk"
-    #include: "rules/strand_graph.smk"
 
-if config["steps"]["ratio_enrichment"]:
+if config["steps"]["okseq"]:
     include: "rules/rfd_annotation.smk"
 
-if config["steps"]["annotation"]:
+if config["steps"]["cutrun"]:
     include: "rules/annotation.smk"

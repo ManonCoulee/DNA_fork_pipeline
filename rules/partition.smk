@@ -22,7 +22,7 @@ rule partition:
     threads:
         20
     conda:
-        CONDA_ENV_ANNOTATION
+        CONDA_ENV_OKSEQ
     shell:
         """
         Rscript {params.script}/partition.R {input} {params.dir} {params.sample} {params.IZ} {threads}

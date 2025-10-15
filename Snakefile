@@ -27,7 +27,6 @@ CONDA_ENV_OKSEQ = PIPELINE_DIR + "/envs/conda/OKseqHMM.2.yaml"
 CONDA_ENV_BEDGRAPH = PIPELINE_DIR + "/envs/conda/bedgraphtobigwig-482.yaml"
 CONDA_ENV_DEEPTOOLS = PIPELINE_DIR + "/envs/conda/deeptools-3.5.4.yaml"
 CONDA_ENV_ANNOTATION = PIPELINE_DIR + "/envs/conda/R_annotation.yaml"
-CONDA_ENV_PARTITION = PIPELINE_DIR + "/envs/conda/R_partition.yaml"
 
 ###############################################################################
 ## Read design file

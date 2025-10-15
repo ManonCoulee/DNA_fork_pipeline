@@ -5,7 +5,7 @@
 rm(list = ls())
 options(warn = -1, width = 150)
 
-rlibs = c('ggplot2','RColorBrewer','introdataviz','parallel','dplyr','ggpubr','maditr','pheatmap')
+rlibs = c('parallel','dplyr')
 invisible(lapply(rlibs, function(x) suppressMessages(library(x, character.only = TRUE))))
 
 ####################################################################################################

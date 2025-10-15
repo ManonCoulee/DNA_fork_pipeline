@@ -5,7 +5,7 @@
 rm(list = ls())
 options(warn = -1, width = 150)
 
-rlibs = c('parallel','dplyr')
+rlibs = c('parallel')
 invisible(lapply(rlibs, function(x) suppressMessages(library(x, character.only = TRUE))))
 
 ####################################################################################################
@@ -35,13 +35,14 @@ IZ <- read.table(IZ_path, h = FALSE, sep = "\t")
 colnames(IZ) <- c("chr","start","end","delta","size","pos")
 
 ## Generation of readcounts file
-readcounts <- read.table(readcounts_path, sep = "\t", h = TRUE)
+readcounts <- read.table(readcounts_path, sep = "\t", h = FALSE)
 colnames(readcounts) <- c("chr","start","end","fwd","rev")
 readcounts$id <- paste0(readcounts$chr,":",readcounts$start,"-",readcounts$end)
-readcounts$cpm <- cpm(readcounts$rev) + cpm(readcounts$fwd)
+readcounts$cpm_rev <- (readcounts$rev / sum(readcounts$rev))*1000
+readcounts$cpm_fwd <- (readcounts$fwd / sum(readcounts$fwd))*1000
+readcounts$cpm <- readcounts$cpm_rev + readcounts$cpm_fwd
 readcounts <- readcounts[readcounts$cpm > .3,]
 readcounts$center <- (readcounts$start + readcounts$end)/2
-
 
 ####################################################################################################
 ## RFD calcul

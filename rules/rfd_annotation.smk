@@ -28,7 +28,7 @@ rule okseqhmm:
         Rscript {params.script}/launchOKseqHMM.R {input.bam} {params.outname} {params.chr_size} {params.threshold} {params.binsize} {params.wins} {params.script}
         """
 
-rule bedgraphtobigwig:
+rule okseq_bedgraphtobigwig:
     input:
         os.path.normpath(OUTPUT_DIR + "/OKseqHMM/{sample_name}/{sample_name}_RFD_cutoff{thresh}_bs{bin_size}_sm_{win_s}kb.bedgraph")
     output:

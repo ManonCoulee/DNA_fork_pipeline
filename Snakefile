@@ -95,13 +95,16 @@ if config["input_format"] == "fastq":
     include: "rules/bam_report.smk"
     include: "rules/transform_bam.smk"
 
-if config["steps"]["scarseq"]:
+if config["steps"]["scarseq"] | config["steps"]["okseq"]:
     include: "rules/strand_splitting.smk"
     include: "rules/reads_counts.smk"
+
+if config["steps"]["scarseq"]:
     include: "rules/partition.smk"
 
 if config["steps"]["okseq"]:
     include: "rules/rfd_annotation.smk"
+    include: "rules/IZ_position.smk"
 
 if config["steps"]["cutrun"]:
     include: "rules/annotation.smk"

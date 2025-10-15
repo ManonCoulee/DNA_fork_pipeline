@@ -1,20 +1,13 @@
-"""
-###############################################################################
-Rule for counts the number of reads
-###############################################################################
-"""
 
-rule partition:
+rule rfd:
     input:
         os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_readcounts.bed")
     output:
-        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd.bedgraph"),
-        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15.bedgraph"),
-        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15.tsv")
+        os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}_rfd_sm15.bedgraph"),
+        os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}_rfd_sm15.tsv"),
+        os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}_IZ_position_raw.bed")
     params:
-        dir = os.path.normpath(OUTPUT_DIR + "/Profiles/"),
-        sample = "{sample_name}",
-        IZ = config["references"]["IZ"]
+        dir = os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}")
     resources:
 	    partition="longq",
 	    mem_mb=30720,
@@ -25,12 +18,12 @@ rule partition:
         CONDA_ENV_OKSEQ
     shell:
         """
-        Rscript {params.script}/partition.R {input} {params.dir} {params.sample} {params.IZ} {threads}
+        Rscript {params.script}/rfd.R {input} {params.dir} {threads}
         """
 
-rule partition_bedgraphtobigwig:
+rule rfd_bedgraphtobigwig:
     input:
-        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15.bedgraph")
+        os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}_rfd_sm15.bedgraph")
     output:
         os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15.bw")
     params:
@@ -44,7 +37,7 @@ rule partition_bedgraphtobigwig:
         bedGraphToBigWig {input} {params.chr_size} {output}
         """
 
-rule partition_matrix:
+rule rfd_matrix:
     input:
         os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15.bw")
     output:
@@ -63,7 +56,7 @@ rule partition_matrix:
             -a 200000 -b 200000 --missingDataAsZero
         """
 
-rule partition_heatmap:
+rule rfd_heatmap:
     input:
         os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15_matrix.gz")
     output:

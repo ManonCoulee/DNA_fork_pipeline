@@ -23,6 +23,7 @@ references:
   chr_size: "/home/m_coulee/annotation/mm39.chrom.sizes.txt"
   GTF: "/home/mcoulee/Documents/Annotations/Mouse/GRCm39.109/Mus_musculus.GRCm39.114.gtf"
   IZ: "/home/mcoulee/Documents/H3K9me3_analysis/OKseq/E14_1kb_10cut_sm10_remNAN.bed"
+  bins: "/home/"
 
 # Tools parameters
 trimgalore_parameters:

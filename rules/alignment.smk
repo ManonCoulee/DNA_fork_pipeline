@@ -6,8 +6,6 @@ Rule for aligned with Bowtie2
 
 rule bowtie_alignment:
     input:
-        #R1 = os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_1_val_1.fq.gz"),
-        #R2 = os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_2_val_2.fq.gz")
         R1 = os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_1_filtered.fq.gz"),
         R2 = os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_2_filtered.fq.gz")
     output:

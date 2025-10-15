@@ -9,23 +9,9 @@ def input_igg(wildcards):
     igg_path = os.path.normpath(OUTPUT_DIR + "/Peakcalling/" + igg + "/" + igg + ".bedgraph")
     return(igg_path)
 
-rule genomecov:
-    input:
-        os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}.bam")
-    output:
-        os.path.normpath(OUTPUT_DIR + "/Peakcalling/{sample_name}/{sample_name}.bedgraph")
-    resources:
-	    partition="mediumq"
-    conda:
-        CONDA_ENV_BEDTOOLS
-    shell:
-        """
-        bedtools genomecov -bg -ibam {input} > {output}
-        """  
-
 rule seacr:
     input:
-        trt = os.path.normpath(OUTPUT_DIR + "/Peakcalling/{treatment_name}/{treatment_name}.bedgraph"),
+        trt = os.path.normpath(OUTPUT_DIR + "/Bam/{treatment_name}/{treatment_name}.bedgraph"),
         ctl = input_igg
     output:
         os.path.normpath(OUTPUT_DIR + "/Peakcalling/{treatment_name}/SEACR/{treatment_name}.{mode}.bed")

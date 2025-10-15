@@ -21,8 +21,12 @@ def get_targets():
         targets["reports"]=[
             expand(os.path.normpath(OUTPUT_DIR + "/Quality_Control/Reports/{sample_name}/{sample_name}_summary_reports.txt"),sample_name = SAMPLE_NAME)
         ]
+        targets["transform"]=[
+            expand(os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}.bedgraph"),sample_name=SAMPLE_NAME),
+            expand(os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}.bw"),sample_name=SAMPLE_NAME)
+        ]
     
-    if config["steps"]["split_strand_analysis"]:
+    if config["steps"]["scarseq"]:
         targets["strands"]=[
             expand(os.path.normpath(OUTPUT_DIR + "/Strand/reverse/{sample_name}/{sample_name}.bam"), sample_name=SAMPLE_NAME),
             expand(os.path.normpath(OUTPUT_DIR + "/Strand/forward/{sample_name}/{sample_name}.bam"),sample_name=SAMPLE_NAME),
@@ -30,14 +34,17 @@ def get_targets():
             expand(os.path.normpath(OUTPUT_DIR + "/Strand/{strand}/{sample_name}/{sample_name}.bedgraph"),sample_name=SAMPLE_NAME,strand=STRAND),
             expand(os.path.normpath(OUTPUT_DIR + "/Strand/{strand}/{sample_name}/{sample_name}.bw"),sample_name=SAMPLE_NAME,strand=STRAND)
         ]
+        targets["readcounts"]=[
+            expand(os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_{strand}.bed"), sample_name=SAMPLE_NAME,strand = STRAND)
+        ]
 
-    if config["steps"]["ratio_enrichment"]:
+    if config["steps"]["okseq"]:
         targets["okseq"]=[
             expand(os.path.normpath(OUTPUT_DIR + "/OKseqHMM/{sample_name}/{sample_name}_RFD_cutoff{thresh}_bs{bin_size}_sm_{win_s}kb.bedgraph"),sample_name=SAMPLE_NAME, thresh=config["okseqhmm_parameters"]["threshold"],bin_size=BINSIZE,win_s=config["okseqhmm_parameters"]["winS"]),
             expand(os.path.normpath(OUTPUT_DIR + "/OKseqHMM/{sample_name}/{sample_name}_RFD_cutoff{thresh}_bs{bin_size}_sm_{win_s}kb.bw"),sample_name=SAMPLE_NAME, thresh=config["okseqhmm_parameters"]["threshold"],bin_size=BINSIZE,win_s=config["okseqhmm_parameters"]["winS"])
         ]
     
-    if config["steps"]["annotation"]:
+    if config["steps"]["cutrun"]:
         targets["anno"]=[
             expand(os.path.normpath(OUTPUT_DIR + "/Peakcalling/{sample_name}/{sample_name}.bedgraph"),sample_name=SAMPLE_NAME)
         ]

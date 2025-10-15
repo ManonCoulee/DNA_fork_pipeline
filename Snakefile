@@ -73,6 +73,11 @@ STRAND = ["reverse","forward"]
 bin_size = str(config["okseqhmm_parameters"]["binSize"])
 BINSIZE = bin_size.replace("000","kb")
 
+## Create a SamplePlan file
+if config["steps"]["scarseq"]:
+    with open(OUTPUT_DIR + "/SamplePlan.tsv", "a") as f:
+        f.write("SampleID\tCellline\tStrand\tSamplePath\tBatch\tSamplePool\tSampleName")
+
 ###############################################################################
 ## Rule inclusion
 
@@ -85,13 +90,15 @@ rule all:
 
 if config["input_format"] == "fastq":
     include: "rules/fastq_qc.smk"
-    include: "rules/trimming_cutadapt.smk"
+    include: "rules/trimming.smk"
     include: "rules/alignment.smk"
     include: "rules/duplicates.smk"
     include: "rules/bam_report.smk"
+    include: "rules/transform_bam.smk"
 
 if config["steps"]["scarseq"]:
     include: "rules/strand_splitting.smk"
+    include: "rules/reads_counts.smk"
 
 if config["steps"]["okseq"]:
     include: "rules/rfd_annotation.smk"

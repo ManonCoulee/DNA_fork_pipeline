@@ -18,7 +18,6 @@ INDEX_DIR = config["references"]["index"]
 ## Conda environment
 CONDA_ENV_BEDTOOLS = PIPELINE_DIR + "/envs/conda/bedtools-2.31.yaml"
 CONDA_ENV_FASTQC = PIPELINE_DIR + "/envs/conda/fastqc-0.12.yaml"
-CONDA_ENV_TRIMGALORE = PIPELINE_DIR + "/envs/conda/trimgalore-0.6.yaml"
 CONDA_ENV_CUTADAPT = PIPELINE_DIR + "/envs/conda/cutadapt-2.6.yaml"
 CONDA_ENV_BOWTIE = PIPELINE_DIR + "/envs/conda/bowtie2-2.4.yaml"
 CONDA_ENV_SAMTOOLS = PIPELINE_DIR + "/envs/conda/samtools-1.13.yaml"
@@ -28,6 +27,7 @@ CONDA_ENV_OKSEQ = PIPELINE_DIR + "/envs/conda/OKseqHMM.2.yaml"
 CONDA_ENV_BEDGRAPH = PIPELINE_DIR + "/envs/conda/bedgraphtobigwig-482.yaml"
 CONDA_ENV_DEEPTOOLS = PIPELINE_DIR + "/envs/conda/deeptools-3.5.4.yaml"
 CONDA_ENV_ANNOTATION = PIPELINE_DIR + "/envs/conda/R_annotation.yaml"
+CONDA_ENV_PARTITION = PIPELINE_DIR + "/envs/conda/R_partition.yaml"
 
 ###############################################################################
 ## Read design file
@@ -99,6 +99,7 @@ if config["input_format"] == "fastq":
 if config["steps"]["scarseq"]:
     include: "rules/strand_splitting.smk"
     include: "rules/reads_counts.smk"
+    include: "rules/partition.smk"
 
 if config["steps"]["okseq"]:
     include: "rules/rfd_annotation.smk"

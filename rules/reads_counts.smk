@@ -1,14 +1,17 @@
 """
 ###############################################################################
-Rule for splitting strand
+Rule for counts the number of reads
 ###############################################################################
 """
 
 rule read_counts_bins:
     input: 
-        os.path.normpath(OUTPUT_DIR + "/Strand/{strand}/{sample_name}/{sample_name}.bam")
+        fwd = os.path.normpath(OUTPUT_DIR + "/Strand/forward/{sample_name}/{sample_name}.bam"),
+        fwd_bai = os.path.normpath(OUTPUT_DIR + "/Strand/forward/{sample_name}/{sample_name}.bam.bai"),
+        rev = os.path.normpath(OUTPUT_DIR + "/Strand/reverse/{sample_name}/{sample_name}.bam"),
+        rev_bai = os.path.normpath(OUTPUT_DIR + "/Strand/reverse/{sample_name}/{sample_name}.bam.bai")
     output:
-        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_{strand}.bed")
+        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_readcounts.bed")
     params:
         bins = config["references"]["bins"]
     conda:
@@ -17,7 +20,5 @@ rule read_counts_bins:
         15
     shell:
         """
-        multiBamSummary BED-file --BED {params.bins} -b {input} --outRawCounts {output} -p {threads}
+        multiBamSummary BED-file --BED {params.bins} -b {input.fwd} {input.rev} --outRawCounts {output} -p {threads}
         """
-
-    

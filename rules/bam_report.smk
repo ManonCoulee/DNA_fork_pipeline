@@ -8,10 +8,10 @@ rule reports:
     input:
         fastq = os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}_1.fq.gz"),
         trim = os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_1_filtered.fq.gz"),
-        bam = os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_unmarked.bam"),
+        bam = os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}_unmarked.bam"),
         trim_bam = os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}.bam"),
-        reverse = os.path.normpath(OUTPUT_DIR + "/Strand/reverse/{sample_name}/{sample_name}.bam"),
-        forward = os.path.normpath(OUTPUT_DIR + "/Strand/forward/{sample_name}/{sample_name}.bam")
+        rev = os.path.normpath(OUTPUT_DIR + "/Strand/reverse/{sample_name}/{sample_name}.bam"),
+        fwd = os.path.normpath(OUTPUT_DIR + "/Strand/forward/{sample_name}/{sample_name}.bam")
     output:
         os.path.normpath(OUTPUT_DIR + "/Quality_Control/Reports/{sample_name}/{sample_name}_summary_reports.txt")
     params:
@@ -26,6 +26,6 @@ rule reports:
     shell:
         """
         bash {PIPELINE_DIR}/scripts/summary_read_count.sh {input.fastq} \
-        {input.trim} {input.bam} {input.trim_bam} {input.reverse} {input.forward} {output} {params.length} \
+        {input.trim} {input.bam} {input.trim_bam} {input.rev} {input.fwd} {output} {params.length} \
         {params.quality}
         """

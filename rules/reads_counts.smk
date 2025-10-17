@@ -15,9 +15,9 @@ rule read_counts_bins:
     params:
         bins = config["references"]["bins"]
     resources:
-	partition="longq",
-	mem_mb=30720,
-	time_min=10079
+        partition="longq",
+	    mem_mb=30720,
+	    time_min=10079
     conda:
         CONDA_ENV_DEEPTOOLS
     threads:

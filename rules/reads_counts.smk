@@ -14,6 +14,10 @@ rule read_counts_bins:
         os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_readcounts.bed")
     params:
         bins = config["references"]["bins"]
+    resources:
+	partition="longq",
+	mem_mb=30720,
+	time_min=10079
     conda:
         CONDA_ENV_DEEPTOOLS
     threads:

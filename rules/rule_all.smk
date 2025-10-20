@@ -31,7 +31,6 @@ def get_targets():
             expand(os.path.normpath(OUTPUT_DIR + "/Strand/reverse/{sample_name}/{sample_name}.bam"), sample_name=SAMPLE_NAME),
             expand(os.path.normpath(OUTPUT_DIR + "/Strand/forward/{sample_name}/{sample_name}.bam"),sample_name=SAMPLE_NAME),
             expand(os.path.normpath(OUTPUT_DIR + "/Strand/{strand}/{sample_name}/{sample_name}.bam.bai"),sample_name=SAMPLE_NAME,strand=STRAND),
-            expand(os.path.normpath(OUTPUT_DIR + "/Strand/{strand}/{sample_name}/{sample_name}.bedgraph"),sample_name=SAMPLE_NAME,strand=STRAND),
             expand(os.path.normpath(OUTPUT_DIR + "/Strand/{strand}/{sample_name}/{sample_name}.bw"),sample_name=SAMPLE_NAME,strand=STRAND)
         ]
         targets["readcounts"]=[

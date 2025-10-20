@@ -39,7 +39,8 @@ def get_targets():
         targets["partition"]=[
             expand(os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd.bedgraph"),sample_name=SAMPLE_NAME),
             expand(os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15.bedgraph"),sample_name=SAMPLE_NAME),
-            expand(os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15.tsv"),sample_name=SAMPLE_NAME)
+            expand(os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15.tsv"),sample_name=SAMPLE_NAME),
+            expand(os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15_profil.pdf"),sample_name=SAMPLE_NAME)
         ]
 
     if config["steps"]["okseq"]:
@@ -50,7 +51,8 @@ def get_targets():
         targets["rfd"]=[
             expand(os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}_IZ_position_raw.bed"),sample_name=SAMPLE_NAME),
             expand(os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}_rfd_sm15.bedgraph"),sample_name=SAMPLE_NAME),
-            expand(os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}_rfd_sm15.tsv"),sample_name=SAMPLE_NAME)
+            expand(os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}_rfd_sm15.tsv"),sample_name=SAMPLE_NAME),
+            expand(os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}_rfd_sm15_profil.pdf"),sample_name=SAMPLE_NAME)
         ]
     
     if config["steps"]["cutrun"]:

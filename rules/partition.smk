@@ -15,7 +15,7 @@ rule partition:
         dir = os.path.normpath(OUTPUT_DIR + "/Profiles/"),
         sample = "{sample_name}",
         IZ = config["references"]["IZ"],
-        script = os.path.normpath(PIPELINE_DIR + "/script/")
+        script = os.path.normpath(PIPELINE_DIR + "/scripts/")
     resources:
 	    partition="longq",
 	    mem_mb=30720,

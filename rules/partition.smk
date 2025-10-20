@@ -37,7 +37,9 @@ rule partition_bedgraphtobigwig:
     params:
         chr_size = config["references"]["chr_size"]
     resources:
-	    partition="mediumq"
+	    partition="longq",
+	    mem_mb=30720,
+	    time_min=10079
     conda:
         CONDA_ENV_BEDGRAPH
     shell:
@@ -55,7 +57,9 @@ rule partition_matrix:
     threads:
         15
     resources:
-	    partition="mediumq"
+	    partition="longq",
+	    mem_mb=30720,
+	    time_min=10079
     conda:
         CONDA_ENV_DEEPTOOLS
     shell:
@@ -73,7 +77,7 @@ rule partition_heatmap:
     params:
         IZ = config["references"]["IZ"]
     resources:
-	    partition="short"
+	    partition="shortq"
     conda:
         CONDA_ENV_DEEPTOOLS
     shell:

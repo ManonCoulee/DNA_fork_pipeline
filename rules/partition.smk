@@ -36,6 +36,7 @@ rule partition_bedgraphtobigwig:
         os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15.bw")
     params:
         chr_size = config["references"]["chr_size"]
+        sample_dir = os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}")
     resources:
 	    partition="longq",
 	    mem_mb=30720,
@@ -44,7 +45,8 @@ rule partition_bedgraphtobigwig:
         CONDA_ENV_BEDGRAPH
     shell:
         """
-        bedGraphToBigWig {input} {params.chr_size} {output}
+        sort -k1,1 -k2,2n {input} > {params.sample_dir}_sorted.bedgraph
+        bedGraphToBigWig {params.sample_dir}_sorted.bedgraph {params.chr_size} {output}
         """
 
 rule partition_matrix:

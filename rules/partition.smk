@@ -74,8 +74,8 @@ rule partition_heatmap:
     input:
         os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15_matrix.gz")
     output:
-        SVG = os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15_profil.svg"),
-        PDF = os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15_profil.pdf")
+        SVG = os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15_heatmap.svg"),
+        PDF = os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15_heatmap.pdf")
     params:
         IZ = config["references"]["IZ"]
     resources:

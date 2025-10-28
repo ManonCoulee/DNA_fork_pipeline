@@ -33,7 +33,7 @@ rule partition_bedgraphtobigwig:
     input:
         os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15.bedgraph")
     output:
-        os.path.normpath(OUTPUT_DIR + "i/Profiles/{sample_name}_rfd_sm15.bw")
+        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15.bw")
     params:
         chr_size = config["references"]["chr_size"],
         sample_dir = os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}")

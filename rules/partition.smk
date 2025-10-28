@@ -79,7 +79,9 @@ rule partition_heatmap:
     params:
         IZ = config["references"]["IZ"]
     resources:
-	    partition="shortq"
+	    partition="longq",
+	    mem_mb=30720,
+	    time_min=10079
     conda:
         CONDA_ENV_DEEPTOOLS
     shell:

@@ -86,6 +86,8 @@ rule partition_heatmap:
         CONDA_ENV_DEEPTOOLS
     shell:
         """
-        plotHeatmap -m {input} -o {output.SVG} --colorMap RdBu --refPointLabel IZ --heatmapHeight 10
-        plotHeatmap -m {input} -o {output.PDF} --colorMap RdBu --refPointLabel IZ --heatmapHeight 10
+        plotHeatmap -m {input} -o {output.SVG} --colorMap RdBu --refPointLabel IZ --heatmapHeight 10 \
+            --whatToShow "heatmap and colorbar"
+        plotHeatmap -m {input} -o {output.PDF} --colorMap RdBu --refPointLabel IZ --heatmapHeight 10 \
+            --whatToShow "heatmap and colorbar"
         """

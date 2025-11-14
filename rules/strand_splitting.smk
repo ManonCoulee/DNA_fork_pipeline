@@ -57,7 +57,9 @@ rule bamtobedgraph_strand:
     conda:
         CONDA_ENV_BEDTOOLS
     resources:
-	    partition="mediumq"
+	    partition="longq",
+	    mem_mb=30720,
+	    time_min=10079
     shell:
         """
         bedtools genomecov -bg -ibam {input} > {output}

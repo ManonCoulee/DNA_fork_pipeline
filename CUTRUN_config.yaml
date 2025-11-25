@@ -17,13 +17,13 @@ design: "/home/m_coulee/Post-doc/H3K9me3_pipeline/H3K9me3_design.csv"
 
 # References information
 references:
-  genome_fasta: "/mnt/beegfs02/database/bioinfo/Index_DB/Fasta/Ensembl/GRCm39.109/mus_musculus.GRCm39.109.dna.fasta"
+  genome_fasta: "/home/m_coulee/annotation/mm39.fa.gz"
   genome: "mm39"
-  chromosomes: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', 'MT', 'X', 'Y']
+  index: "/home/m_coulee/annotation/bowtie2_index"
   chr_size: "/home/m_coulee/annotation/mm39.chrom.sizes.txt"
-  GTF: "/home/mcoulee/Documents/Annotations/Mouse/GRCm39.109/Mus_musculus.GRCm39.114.gtf"
-  IZ: "/home/mcoulee/Documents/H3K9me3_analysis/OKseq/E14_1kb_10cut_sm10_remNAN.bed"
-  bins: "/home/"
+  adapters: "/home/m_coulee/adapters.fa"
+  IZ: "/home/m_coulee/E14_OKseq_IZ.bed"
+  bins: "/home/m_coulee/mm39_bins.bed"
 
 # Tools parameters
 cutadapt_parameters:

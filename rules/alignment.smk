@@ -36,7 +36,9 @@ rule samtools_view:
         CONDA_ENV_SAMTOOLS
     threads: 6
     resources:
-	    partition="mediumq"
+	    partition="longq",
+	    mem_mb=30720,
+	    time_min=10079
     shell:
         """
         samtools view -h -b -@ {threads} -o {output} {input}

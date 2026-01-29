@@ -7,7 +7,8 @@ rule rfd:
         os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}_rfd_sm15.tsv"),
         os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}_IZ_position_raw.bed")
     params:
-        dir = os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}")
+        dir = os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}"),
+	script = os.path.normpath(PIPELINE_DIR + "/scripts/")
     resources:
 	    partition="longq",
 	    mem_mb=30720,

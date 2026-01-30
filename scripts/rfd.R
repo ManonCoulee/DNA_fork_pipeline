@@ -59,7 +59,7 @@ df <- lapply(chr_order, function(chr,RFD,win,ncore){
 
 readcounts_sm <- do.call("rbind",df)
 
-write.table(paste0(outdir,"_rfd_sm15.bedgraph"),x = readcounts_sm[,c(1:3,10)], sep = "\t", col.names = FALSE, row.names = FALSE, quote = FALSE)
+write.table(paste0(outdir,"_rfd_sm15.bedgraph"),x = readcounts_sm[,c(1:3,12)], sep = "\t", col.names = FALSE, row.names = FALSE, quote = FALSE)
 write.table(paste0(outdir,"_rfd_sm15.tsv"),x = readcounts_sm, sep = "\t", col.names = TRUE, row.names = FALSE, quote = FALSE)
 
 ####################################################################################################

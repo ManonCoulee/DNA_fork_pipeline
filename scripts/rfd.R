@@ -30,8 +30,8 @@ print("## RFD calcul")
 readcounts <- read.table(sample, sep = "\t", h = FALSE)
 colnames(readcounts) <- c("chr","start","end","fwd","rev")
 readcounts$id <- paste0(readcounts$chr,":",readcounts$start,"-",readcounts$end)
-readcounts$cpm_rev <- (readcounts$rev / sum(readcounts$rev))*1000
-readcounts$cpm_fwd <- (readcounts$fwd / sum(readcounts$fwd))*1000
+readcounts$cpm_rev <- (readcounts$rev / sum(readcounts$rev))*1000000
+readcounts$cpm_fwd <- (readcounts$fwd / sum(readcounts$fwd))*1000000
 readcounts$cpm <- readcounts$cpm_rev + readcounts$cpm_fwd
 readcounts <- readcounts[readcounts$cpm > .3,]
 readcounts$center <- (readcounts$start + readcounts$end)/2

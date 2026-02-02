@@ -70,7 +70,7 @@ chrom_table <- lapply(chr_order, function(chr,counts,win,ncore){
     counts <- counts[counts$chr == chr,]
     list_pos <- split(seq_len(nrow(counts)),rep_len(seq_len(ncore),nrow(counts)))
     counts_chr <- do.call("rbind",mclapply(list_pos,function(positions,counts,win){
-        counts[positions,"rfd_win"] <- unlist(lapply(positions,function(pos,RFD,win){
+        counts[positions,"rfd_win"] <- unlist(lapply(positions,function(pos,counts,win){
             counts_pos <- counts[pos,]
             counts <- counts[counts$center < counts_pos$center + win,]
             counts <- counts[counts$center > counts_pos$center - win,]

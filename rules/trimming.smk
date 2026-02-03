@@ -4,25 +4,28 @@ Rule for trimming and quality filtering
 ###############################################################################
 """
 
-rule trimagalore_trim:
+rule cutadapt_trim:
     input:
         R1 = os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}_1.fq.gz"),
         R2 = os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}_2.fq.gz")
     output:
-        os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_1_val_1.fq.gz"),
-        os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_2_val_2.fq.gz")
+        R1 = os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_1_filtered.fq.gz"),
+        R2 = os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}/{sample_name}_2_filtered.fq.gz")
     params:
-        quality = config["trimgalore_parameters"]["quality"],
-        length = config["trimgalore_parameters"]["length"],
-	outdir = os.path.normpath(OUTPUT_DIR + "/tmp/{sample_name}")
+        quality = config["cutadapt_parameters"]["quality"],
+        length = config["cutadapt_parameters"]["length"],
+        adapters = config["references"]["adapters"]
     threads: 6
     resources:
+	    mem_mb=30720,
+	    time_min=10079,
 	    partition="longq"
     conda:
-        CONDA_ENV_TRIMGALORE
+        CONDA_ENV_CUTADAPT
     shell:
         """
-        trim_galore --paired --output_dir {params.outdir} \
-            --quality {params.quality} --length {params.length} --cores {threads} \
+        cutadapt -a "file:{params.adapters}" -A "file:{params.adapters}" \
+            -o {output.R1} -p {output.R2} \
+            --length {params.length} --quality-base {params.quality} --cores {threads} \
             {input.R1} {input.R2}
         """

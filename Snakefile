@@ -18,7 +18,6 @@ INDEX_DIR = config["references"]["index"]
 ## Conda environment
 CONDA_ENV_BEDTOOLS = PIPELINE_DIR + "/envs/conda/bedtools-2.31.yaml"
 CONDA_ENV_FASTQC = PIPELINE_DIR + "/envs/conda/fastqc-0.12.yaml"
-CONDA_ENV_TRIMGALORE = PIPELINE_DIR + "/envs/conda/trimgalore-0.6.yaml"
 CONDA_ENV_CUTADAPT = PIPELINE_DIR + "/envs/conda/cutadapt-2.6.yaml"
 CONDA_ENV_BOWTIE = PIPELINE_DIR + "/envs/conda/bowtie2-2.4.yaml"
 CONDA_ENV_SAMTOOLS = PIPELINE_DIR + "/envs/conda/samtools-1.13.yaml"
@@ -73,6 +72,11 @@ STRAND = ["reverse","forward"]
 bin_size = str(config["okseqhmm_parameters"]["binSize"])
 BINSIZE = bin_size.replace("000","kb")
 
+## Create a SamplePlan file
+if config["steps"]["scarseq"]:
+    with open(OUTPUT_DIR + "/SamplePlan.tsv", "a") as f:
+        f.write("SampleID\tCellline\tStrand\tSamplePath\tBatch\tSamplePool\tSampleName")
+
 ###############################################################################
 ## Rule inclusion
 
@@ -84,21 +88,24 @@ rule all:
         "Pipeline finished!"
 
 if config["input_format"] == "fastq":
-    #if (os.path.exists(str(INDEX_DIR)) == False):
-    #    include: "rules/alignment_index.smk"
     include: "rules/fastq_qc.smk"
-    include: "rules/trimming_cutadapt.smk"
+    include: "rules/trimming.smk"
     include: "rules/alignment.smk"
     include: "rules/transform_bam.smk"
     include: "rules/duplicates.smk"
     include: "rules/bam_report.smk"
+    include: "rules/transform_bam.smk"
 
-if config["steps"]["split_strand_analysis"]:
+if config["steps"]["scarseq"] | config["steps"]["okseq"]:
     include: "rules/strand_splitting.smk"
-    #include: "rules/strand_graph.smk"
+    include: "rules/reads_counts.smk"
 
-if config["steps"]["ratio_enrichment"]:
+if config["steps"]["scarseq"]:
+    include: "rules/partition.smk"
+
+if config["steps"]["okseq"]:
     include: "rules/rfd_annotation.smk"
+    include: "rules/IZ_position.smk"
 
-if config["steps"]["annotation"]:
+if config["steps"]["cutrun"]:
     include: "rules/annotation.smk"

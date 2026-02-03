@@ -5,27 +5,28 @@ input_format: "fastq" #fastq or bam (aligned bam)
 
 # Select which parts of the pipeline should be run
 steps:
-  split_strand_analysis: false #annotation on split strand with SEACR
-  ratio_enrichment: false #utilization of OKseqHMM
-  annotation: true #annotation on all strand with SEACR
+  scarseq: true #analysis of scarseq data
+  okseq: false #utilization of OKseqHMM
+  cutrun: false #annotation of cut&run with SEACR
 
 # Output parameters
-output_dir: "/mnt/beegfs02/scratch/m_coulee/H3K9me3_analysis"
+output_dir: "/mnt/beegfs01/scratch/<your_name>/<data>_analysis"
 
 # Path to design file
-design: "/home/m_coulee/Post-doc/H3K9me3_pipeline/H3K9me3_design.csv"
+design: "/mnt/beegfs01/scratch/<your_name>/CUTRUN_design.csv"
 
 # References information
 references:
-  genome_fasta: "/mnt/beegfs02/database/bioinfo/Index_DB/Fasta/Ensembl/GRCm39.109/mus_musculus.GRCm39.109.dna.fasta"
+  genome_fasta: "/home/m_coulee/annotation/mm39.fa.gz"
   genome: "mm39"
-  chromosomes: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', 'MT', 'X', 'Y']
+  index: "/home/m_coulee/annotation/bowtie2_index"
   chr_size: "/home/m_coulee/annotation/mm39.chrom.sizes.txt"
-  GTF: "/home/mcoulee/Documents/Annotations/Mouse/GRCm39.109/Mus_musculus.GRCm39.114.gtf"
-  IZ: "/home/mcoulee/Documents/H3K9me3_analysis/OKseq/E14_1kb_10cut_sm10_remNAN.bed"
+  adapters: "/home/m_coulee/adapters.fa"
+  IZ: "/home/m_coulee/E14_OKseq_IZ.bed"
+  bins: "/home/m_coulee/mm39_bins.bed"
 
 # Tools parameters
-trimgalore_parameters:
+cutadapt_parameters:
   length: 100
   quality: 10
 

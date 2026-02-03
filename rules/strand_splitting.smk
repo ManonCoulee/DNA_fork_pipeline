@@ -20,7 +20,9 @@ rule strand_split:
         CONDA_ENV_SAMTOOLS
     threads: 6
     resources:
-	    partition="mediumq"
+	    partition="longq",
+	    mem_mb=30720,
+	    time_min=10079
     shell:
         """
         samtools view -h -b -f 83 -@ {threads} -o {params.outdir}.rev1.bam {input}
@@ -57,7 +59,9 @@ rule bamtobedgraph_strand:
     conda:
         CONDA_ENV_BEDTOOLS
     resources:
-	    partition="mediumq"
+	    partition="longq",
+	    mem_mb=30720,
+	    time_min=10079
     shell:
         """
         bedtools genomecov -bg -ibam {input} > {output}

@@ -58,7 +58,7 @@ def get_targets():
     
     if config["steps"]["cutrun"]:
         targets["anno"]=[
-            expand(os.path.normpath(OUTPUT_DIR + "/Peakcalling/{sample_name}/{sample_name}.bedgraph"),sample_name=SAMPLE_NAME)
+            expand(os.path.normpath(OUTPUT_DIR + "/Peakcalling/{sample_name}/{sample_name}_summits.bed"),sample_name=SAMPLE_NAME)
         ]
     #print(targets)
     return targets

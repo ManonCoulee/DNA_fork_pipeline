@@ -4,32 +4,22 @@ Rule for basic annotation
 ###############################################################################
 """
 
-def input_igg(wildcards):
-    igg = IGG_TREATMENT_COUPLE.get(wildcards.treatment_name,"")
-    igg_path = os.path.normpath(OUTPUT_DIR + "/Peakcalling/" + igg + "/" + igg + ".bedgraph")
-    return(igg_path)
-
-rule seacr:
+rule macs2:
     input:
-        trt = os.path.normpath(OUTPUT_DIR + "/Bam/{treatment_name}/{treatment_name}.bedgraph"),
-        ctl = input_igg
+        trt = os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}.bam"),
     output:
-        os.path.normpath(OUTPUT_DIR + "/Peakcalling/{treatment_name}/SEACR/{treatment_name}.{mode}.bed")
+        os.path.normpath(OUTPUT_DIR + "/Peakcalling/{sample_name}/{sample_name}_summits.bed")
     params:
-        mode = config["seacr_parameters"]["mode"],
-        norm = config["seacr_parameters"]["normalisation"],
-        out = os.path.normpath(OUTPUT_DIR + "/Peakcalling/{treatment_name}/SEACR/{treatment_name}"),
-        igg_presence = config["seacr_parameters"]["igg"]
+        genome = config["macs2_parameters"]["genome"],
+        name = os.path.normpath("{sample_name}"),
+        outdir = os.path.normpath(OUTPUT_DIR + "/Peakcalling/{sample_name}"),
+        model = config["macs2_parameters"]["model"]
     resources:
 	    partition="mediumq"
     conda:
-        CONDA_ENV_SEACR
+        CONDA_ENV_MACS2
     shell:
         """
-        if [ "{params.igg_presence}" ]
-        then 
-            bash {PIPELINE_DIR}/scripts/SEACR_1.3.sh {input.trt} {input.ctl} {params.norm} {params.mode} {params.out}
-        else
-            bash {PIPELINE_DIR}/scripts/SEACR_1.3.sh {input.trt} 0.05 {params.norm} {params.mode} {params.out}
-        fi
+        macs2 -t {input.trt} -f BAMPE -g {params.genome} \
+            --outdir {params.outdir} -n {params.name} {params.model}
         """  

@@ -51,15 +51,15 @@ for line in range(0,len(design["sample_id"]),1):
             if (os.path.exists(str(OUTPUT_DIR + "/tmp/" + sample + "_" + rep + ".fq.gz")) == False):
                 os.symlink(str(path + "_" + rep + ".fq.gz"), str(OUTPUT_DIR + "/tmp/" + sample + "_" + rep + ".fq.gz"))
     
-    if config["seacr_parameters"]["igg"]:
-        if design["cell_id"].iloc[line] == "input":
-            IGG_NAME.append(design["sample_id"].iloc[line])
-        else:
-            TREATMENT_NAME.append(design["sample_id"].iloc[line])
-
-        IGG_TREATMENT_COUPLE = dict(zip(TREATMENT_NAME,IGG_NAME))
-    else:
-        TREATMENT_NAME.append(design["sample_id"].iloc[line])
+#    if config["seacr_parameters"]["igg"]:
+#        if design["cell_id"].iloc[line] == "input":
+#            IGG_NAME.append(design["sample_id"].iloc[line])
+#        else:
+#            TREATMENT_NAME.append(design["sample_id"].iloc[line])
+#
+#        IGG_TREATMENT_COUPLE = dict(zip(TREATMENT_NAME,IGG_NAME))
+#    else:
+#        TREATMENT_NAME.append(design["sample_id"].iloc[line])
 
 ## Wildcard constraints
 wildcard_constraints:

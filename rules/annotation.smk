@@ -20,6 +20,6 @@ rule macs2:
         CONDA_ENV_MACS2
     shell:
         """
-        macs2 -t {input.trt} -f BAMPE -g {params.genome} \
+        macs2 callpeak -t {input.trt} -f BAMPE -g {params.genome} \
             --outdir {params.outdir} -n {params.name} {params.model}
         """  

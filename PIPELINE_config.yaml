@@ -22,7 +22,7 @@ references:
   index: "/home/m_coulee/annotation/bowtie2_index"
   chr_size: "/home/m_coulee/annotation/mm39.chrom.sizes.txt"
   adapters: "/home/m_coulee/adapters.fa"
-  IZ: "/home/m_coulee/E14_OKseq_IZ.bed"
+  IZ: "/home/m_coulee/E14_OKseq_IZ.bed" #Necessary only for scarseq step
   bins: "/home/m_coulee/mm39_bins.bed"
 
 # Tools parameters
@@ -30,10 +30,9 @@ cutadapt_parameters:
   length: 100
   quality: 10
 
-seacr_parameters:
-  mode: "stringent" #stringent or relaxed
-  normalisation: "non" #norm (used if you have IgG) or non
-  igg: "true" #true or false
+macs2_parameters:
+  model: "" #empty (default: narrow) or --board
+  genome: "2.7e+9" #2.7e+9 (mus musculus) or 2.9e+9 (human)
 
 okseqhmm_parameters:
   threshold: 10

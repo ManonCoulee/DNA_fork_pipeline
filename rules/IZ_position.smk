@@ -9,7 +9,7 @@ rule rfd:
     params:
         dir = os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}"),
 	    script = os.path.normpath(PIPELINE_DIR + "/scripts/"),
-        chrom = config["reference"]["chr_size"]
+        chrom = config["references"]["chr_size"]
     resources:
 	    partition="longq",
 	    mem_mb=30720,

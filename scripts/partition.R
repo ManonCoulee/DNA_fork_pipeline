@@ -18,6 +18,7 @@ outdir <- args[2]
 sample <- args[3]
 IZ_path <- args[4]
 ncore <- args[5]
+chr <- args[6]
 
 ####################################################################################################
 ## Initialization
@@ -27,8 +28,11 @@ print("## Initialization")
 winS <- 15000
 min_expression <- .3
 
-chr_order <- c("chr1","chr2","chr3","chr4","chr5","chr6","chr7","chr8","chr9","chr10","chr11",
-    "chr12","chr13","chr14","chr15","chr16","chr17","chr18","chr19","chrX","chrY")
+chr <- read.table(chrom, sep = "\t", h = FALSE)
+chr_order <- chr$V1
+
+# chr_order <- c("chr1","chr2","chr3","chr4","chr5","chr6","chr7","chr8","chr9","chr10","chr11",
+#     "chr12","chr13","chr14","chr15","chr16","chr17","chr18","chr19","chrX","chrY")
 
 ## Generation of IZ file
 IZ <- read.table(IZ_path, h = FALSE, sep = "\t")

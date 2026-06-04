@@ -15,7 +15,8 @@ rule partition:
         dir = os.path.normpath(OUTPUT_DIR + "/Profiles/"),
         sample = "{sample_name}",
         IZ = config["references"]["IZ"],
-        script = os.path.normpath(PIPELINE_DIR + "/scripts/")
+        script = os.path.normpath(PIPELINE_DIR + "/scripts/"),
+        chrom = config["reference"]["chr_size"]
     resources:
 	    partition="longq",
 	    mem_mb=30720,
@@ -26,7 +27,7 @@ rule partition:
         CONDA_ENV_OKSEQ
     shell:
         """
-        Rscript {params.script}/partition.R {input} {params.dir} {params.sample} {params.IZ} {threads}
+        Rscript {params.script}/partition.R {input} {params.dir} {params.sample} {params.IZ} {threads} {params.chrom}
         """
 
 rule partition_bedgraphtobigwig:

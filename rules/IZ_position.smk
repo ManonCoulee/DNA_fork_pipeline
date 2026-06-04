@@ -8,7 +8,8 @@ rule rfd:
         os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}_IZ_position_raw.bed")
     params:
         dir = os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}"),
-	script = os.path.normpath(PIPELINE_DIR + "/scripts/")
+	    script = os.path.normpath(PIPELINE_DIR + "/scripts/"),
+        chrom = config["reference"]["chr_size"]
     resources:
 	    partition="longq",
 	    mem_mb=30720,
@@ -19,7 +20,7 @@ rule rfd:
         CONDA_ENV_OKSEQ
     shell:
         """
-        Rscript {params.script}/rfd.R {input} {params.dir} {threads}
+        Rscript {params.script}/rfd.R {input} {params.dir} {threads} {params.chrom}
         """
 
 rule rfd_bedgraphtobigwig:

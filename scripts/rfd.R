@@ -16,10 +16,14 @@ args <- commandArgs(trailingOnly=TRUE)
 sample <- args[1]
 outdir <- args[2]
 ncore <- args[3]
+chrom <- args[4]
 
-chr_order = c("chr1","chr2","chr3","chr4","chr5","chr6","chr7","chr8","chr9","chr10","chr11",
-    "chr12","chr13","chr14","chr15","chr16","chr17","chr18","chr19","chrX","chrY")
+# chr_order = c("chr1","chr2","chr3","chr4","chr5","chr6","chr7","chr8","chr9","chr10","chr11",
+#     "chr12","chr13","chr14","chr15","chr16","chr17","chr18","chr19","chrX","chrY")
 win <- 15000
+
+chr <- read.table(chrom, sep = "\t", h = FALSE)
+chr_order <- chr$V1
 
 ####################################################################################################
 ## RFD 

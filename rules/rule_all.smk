@@ -23,7 +23,8 @@ def get_targets():
         ]
         targets["transform"]=[
             expand(os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}.bedgraph"),sample_name=SAMPLE_NAME),
-            expand(os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}.bw"),sample_name=SAMPLE_NAME)
+            expand(os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}.bw"),sample_name=SAMPLE_NAME),
+            expand(os.path.normpath(OUTPUT_DIR + "/Bam/{sample_name}/{sample_name}_unmarked.bw"),sample_name=SAMPLE_NAME)
         ]
     
     if config["steps"]["scarseq"]:

@@ -35,3 +35,7 @@ fwd_count=$(samtools view -c -F 4 $fwd)
 
 echo "Reverse BAM count mapped reads : ${rev_count}" >> $file_output
 echo "Forward BAM count mapped reads : ${fwd_count}" >> $file_output
+
+sum_count=$((rev_count+fwd_count))
+
+echo "Strand count mapped reads : ${sum_count}" >> $file_output

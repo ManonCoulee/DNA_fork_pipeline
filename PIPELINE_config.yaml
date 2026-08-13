@@ -24,6 +24,7 @@ references:
   adapters: "/home/m_coulee/adapters.fa"
   IZ: "/home/m_coulee/E14_OKseq_IZ.bed" #Necessary only for scarseq step
   bins: "/home/m_coulee/mm39_bins.bed"
+  TE: "/home/m_coulee/mm39_TE.bed"
 
 # Tools parameters
 cutadapt_parameters:

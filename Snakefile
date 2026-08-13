@@ -99,6 +99,7 @@ if config["input_format"] == "fastq":
 if config["steps"]["scarseq"] | config["steps"]["okseq"]:
     include: "rules/strand_splitting.smk"
     include: "rules/reads_counts.smk"
+    include: "rules/readcounts_TE.smk"
 
 if config["steps"]["scarseq"]:
     include: "rules/partition.smk"

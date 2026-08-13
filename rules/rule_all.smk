@@ -35,7 +35,8 @@ def get_targets():
             expand(os.path.normpath(OUTPUT_DIR + "/Strand/{strand}/{sample_name}/{sample_name}.bw"),sample_name=SAMPLE_NAME,strand=STRAND)
         ]
         targets["readcounts"]=[
-            expand(os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_readcounts.bed"), sample_name=SAMPLE_NAME)
+            expand(os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_readcounts.bed"), sample_name=SAMPLE_NAME),
+            expand(os.path.normpath(OUTPUT_DIR + "/Transposable_elements/{sample_name}_readcounts.bed"), sample_name=SAMPLE_NAME)
         ]
         targets["partition"]=[
             expand(os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd.bedgraph"),sample_name=SAMPLE_NAME),

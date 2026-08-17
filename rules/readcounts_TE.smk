@@ -4,7 +4,7 @@ Rule for counts the number of reads in transposable elements
 ###############################################################################
 """
 
-rule read_counts_bins:
+rule readcounts_TE:
     input: 
         fwd = os.path.normpath(OUTPUT_DIR + "/Strand/forward/{sample_name}/{sample_name}.bam"),
         fwd_bai = os.path.normpath(OUTPUT_DIR + "/Strand/forward/{sample_name}/{sample_name}.bam.bai"),

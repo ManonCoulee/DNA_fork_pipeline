@@ -4,16 +4,16 @@ Rule for counts the number of reads in 1kb size
 ###############################################################################
 """
 
-rule read_counts_bins:
+rule readcounts_bins:
     input: 
         fwd = os.path.normpath(OUTPUT_DIR + "/Strand/forward/{sample_name}/{sample_name}.bam"),
         fwd_bai = os.path.normpath(OUTPUT_DIR + "/Strand/forward/{sample_name}/{sample_name}.bam.bai"),
         rev = os.path.normpath(OUTPUT_DIR + "/Strand/reverse/{sample_name}/{sample_name}.bam"),
         rev_bai = os.path.normpath(OUTPUT_DIR + "/Strand/reverse/{sample_name}/{sample_name}.bam.bai")
     output:
-        os.path.normpath(OUTPUT_DIR + "/Transposable_elements/{sample_name}_readcounts.bed")
+        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_readcounts.bed")
     params:
-        TE = config["references"]["TE"]
+        bins = config["references"]["bins"]
     resources:
         partition="longq",
 	    mem_mb=30720,
@@ -24,6 +24,6 @@ rule read_counts_bins:
         15
     shell:
         """
-        multiBamSummary BED-file --BED {params.TE} -b {input.fwd} {input.rev} \
+        multiBamSummary BED-file --BED {params.bins} -b {input.fwd} {input.rev} \
             --outRawCounts {output} -p {threads}
         """

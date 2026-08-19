@@ -35,7 +35,7 @@ rule enrichment_TE:
     params:
         TE = config["references"]["TE"],
         sample = os.path.normpath("{sample_name}"),
-        OK_TE = config["TE"]["OKseq"],
+        OK_TE = config["TE_parameters"]["OKseq"],
         script = os.path.normpath(PIPELINE_DIR + "/scripts/")
     conda:
         CONDA_ENV_OKSEQ

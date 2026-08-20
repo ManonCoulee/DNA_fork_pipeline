@@ -39,6 +39,8 @@ rule enrichment_TE:
         script = os.path.normpath(PIPELINE_DIR + "/scripts/")
     conda:
         CONDA_ENV_OKSEQ
+    resources:
+	partition="longq"
     shell:
         """
         Rscript {params.script}/TE_enrichment.R {input} {params.TE} {params.sample} {params.OK_TE} {output}

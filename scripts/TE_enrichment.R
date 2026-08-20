@@ -5,9 +5,6 @@
 rm(list = ls())
 options(warn = -1, width = 150)
 
-rlibs = c('ggplot2','RColorBrewer','dplyr','ggpubr','introdataviz','edgeR','RIdeogram')
-invisible(lapply(rlibs, function(x) suppressMessages(library(x, character.only = TRUE))))
-
 ####################################################################################################
 ## Initialization
 ####################################################################################################

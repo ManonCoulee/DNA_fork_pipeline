@@ -40,7 +40,9 @@ rule enrichment_TE:
     conda:
         CONDA_ENV_OKSEQ
     resources:
-	partition="longq"
+        partition="longq",
+	    mem_mb=30720,
+	    time_min=10079
     shell:
         """
         Rscript {params.script}/TE_enrichment.R {input} {params.TE} {params.sample} {params.OK_TE} {output}

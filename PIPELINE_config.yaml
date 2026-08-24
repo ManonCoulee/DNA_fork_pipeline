@@ -5,15 +5,15 @@ input_format: "fastq" #fastq or bam (aligned bam)
 
 # Select which parts of the pipeline should be run
 steps:
-  scarseq: true # Analysis of SCAR-seq data
-  okseq: false # Analysis of OK-seq data
-  cutrun: false # Analysis of CUT&RUN data (utilisation of SEACR)
+  scarseq: true #analysis of scarseq data
+  okseq: false #utilization of OKseqHMM
+  cutrun: false #annotation of cut&run with SEACR
 
 # Output parameters
-output_dir: "/mnt/beegfs01/scratch/<your_name>/<data>_analysis"
+output_dir: "/mnt/beegfs01/scratch/m_coulee/H3K9me3_analysis"
 
 # Path to design file
-design: "/mnt/beegfs01/scratch/<your_name>/<PIPELINE_design.csv>"
+design: "/mnt/beegfs01/scratch/m_coulee/H3K9me3_analysis/H3K9me3_design.csv"
 
 # References information
 references:
@@ -22,9 +22,9 @@ references:
   index: "/home/m_coulee/annotation/bowtie2_index"
   chr_size: "/home/m_coulee/annotation/mm39.chrom.sizes.txt"
   adapters: "/home/m_coulee/adapters.fa"
-  IZ: "/home/m_coulee/E14_OKseq_IZ.bed" #Necessary only for scarseq step
-  bins: "/home/m_coulee/mm39_bins.bed"
-  TE: "/home/m_coulee/mm39_TE.bed"
+  IZ: "/home/m_coulee/E14_OKseq_IZ.bed"
+  bins: "/home/m_coulee/annotation/mm39_bins.bed"
+  TE: "/home/m_coulee/annotation/mm39_TE.tsv"
 
 # Tools parameters
 cutadapt_parameters:
@@ -32,8 +32,8 @@ cutadapt_parameters:
   quality: 10
 
 macs2_parameters:
-  model: "" #empty (default: narrow) or --board
-  genome: "2.7e+9" #2.7e+9 (mus musculus) or 2.9e+9 (human)
+  model: "" # empty or --broad
+  genome: "2.7e+9" #2.7e+9 (mouse) or 2.9e+9 (human)
 
 okseqhmm_parameters:
   threshold: 10
@@ -42,3 +42,9 @@ okseqhmm_parameters:
 
 graph_parameters:
   distance: 50000
+
+TE_parameters:
+  OKseq: "/home/m_coulee/E14_OKseq_R1_TE_rfd.tsv"
+
+profile_parameters:
+  OKseq: "/home/m_coulee/E14_OKseq_R1_RFD_sm15.tsv"

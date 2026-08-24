@@ -103,7 +103,7 @@ rule partition_representation:
     params:
         dir = os.path.normpath(OUTPUT_DIR + "/Profiles/"),
         sample = "{sample_name}",
-        OK = config["partition"]["OK"],
+        OK = config["profile_parameters"]["OKseq"],
         script = os.path.normpath(PIPELINE_DIR + "/scripts/"),
     conda:
         CONDA_ENV_OKSEQ

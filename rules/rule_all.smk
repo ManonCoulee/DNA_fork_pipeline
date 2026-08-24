@@ -44,7 +44,10 @@ def get_targets():
             expand(os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_rfd_sm15.bedgraph"),sample_name=SAMPLE_NAME),
             expand(os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_rfd_sm15.bw"),sample_name=SAMPLE_NAME),
             expand(os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_rfd_sm15.tsv"),sample_name=SAMPLE_NAME),
-            expand(os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_rfd_sm15_heatmap.pdf"),sample_name=SAMPLE_NAME)
+            expand(os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_rfd_sm15_heatmap.pdf"),sample_name=SAMPLE_NAME),
+            expand(os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_ratio_rfd.pdf"),sample_name=SAMPLE_NAME),
+            expand(os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_OKseq_correlation_SP.pdf"),sample_name=SAMPLE_NAME),
+            expand(os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_ratio_leading_lagging.pdf"),sample_name=SAMPLE_NAME)
         ]
 
     if config["steps"]["okseq"]:

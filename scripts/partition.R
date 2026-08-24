@@ -31,9 +31,6 @@ min_expression <- .3
 chr <- read.table(chr_path, sep = "\t", h = FALSE)
 chr_order <- chr$V1
 
-# chr_order <- c("chr1","chr2","chr3","chr4","chr5","chr6","chr7","chr8","chr9","chr10","chr11",
-#     "chr12","chr13","chr14","chr15","chr16","chr17","chr18","chr19","chrX","chrY")
-
 ## Generation of IZ file
 IZ <- read.table(IZ_path, h = FALSE, sep = "\t")
 colnames(IZ) <- c("chr","start","end","delta","size","pos")
@@ -118,8 +115,8 @@ readcounts_sm <- cbind(readcounts_sm,distance)
 ####################################################################################################
 
 df <- na.omit(readcounts_sm[,c("chr","start","end","rfd_win")])
-write.table(file.path(outdir,paste0(sample,'_rfd_sm15.bedgraph')), x = df, sep = "\t",row.names = FALSE,
+write.table(file.path(outdir,sample,paste0(sample,'_rfd_sm15.bedgraph')), x = df, sep = "\t",row.names = FALSE,
     quote = FALSE, col.names = FALSE)
 
-write.table(file.path(outdir,paste0(sample,'_rfd_sm15.tsv')), x = readcounts_sm, sep = "\t",row.names = FALSE,
+write.table(file.path(outdir,sample,paste0(sample,'_rfd_sm15.tsv')), x = readcounts_sm, sep = "\t",row.names = FALSE,
     quote = FALSE, col.names = TRUE)

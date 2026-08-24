@@ -6,11 +6,11 @@ Rule for counts the number of reads
 
 rule partition:
     input:
-        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_readcounts.bed")
+        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_readcounts.bed")
     output:
-        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd.bedgraph"),
-        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15.bedgraph"),
-        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15.tsv")
+        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_rfd.bedgraph"),
+        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_rfd_sm15.bedgraph"),
+        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_rfd_sm15.tsv")
     params:
         dir = os.path.normpath(OUTPUT_DIR + "/Profiles/"),
         sample = "{sample_name}",
@@ -32,12 +32,12 @@ rule partition:
 
 rule partition_bedgraphtobigwig:
     input:
-        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15.bedgraph")
+        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_rfd_sm15.bedgraph")
     output:
-        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15.bw")
+        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_rfd_sm15.bw")
     params:
         chr_size = config["references"]["chr_size"],
-        sample_dir = os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}")
+        sample_dir = os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}")
     resources:
 	    partition="longq",
 	    mem_mb=30720,
@@ -52,9 +52,9 @@ rule partition_bedgraphtobigwig:
 
 rule partition_matrix:
     input:
-        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15.bw")
+        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_rfd_sm15.bw")
     output:
-        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15_matrix.gz")
+        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_rfd_sm15_matrix.gz")
     params:
         IZ = config["references"]["IZ"]
     threads:
@@ -73,10 +73,10 @@ rule partition_matrix:
 
 rule partition_heatmap:
     input:
-        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15_matrix.gz")
+        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_rfd_sm15_matrix.gz")
     output:
-        SVG = os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15_heatmap.svg"),
-        PDF = os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_rfd_sm15_heatmap.pdf")
+        SVG = os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_rfd_sm15_heatmap.svg"),
+        PDF = os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_rfd_sm15_heatmap.pdf")
     params:
         IZ = config["references"]["IZ"]
     resources:
@@ -92,3 +92,23 @@ rule partition_heatmap:
         plotHeatmap -m {input} -o {output.PDF} --colorMap RdBu --refPointLabel IZ --heatmapHeight 10 \
             --whatToShow "heatmap and colorbar"
         """
+
+rule partition_representation:
+    input:
+        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_rfd_sm15.tsv")
+    output:
+        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_ratio_rfd.pdf"),
+        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_OKseq_correlation_SP.pdf"),
+        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_ratio_leading_lagging.pdf")
+    params:
+        dir = os.path.normpath(OUTPUT_DIR + "/Profiles/"),
+        sample = "{sample_name}",
+        OK = config["partition"]["OK"],
+        script = os.path.normpath(PIPELINE_DIR + "/scripts/"),
+    conda:
+        CONDA_ENV_OKSEQ
+    shell:
+        """
+        Rscript {params.script}/partition_representation.R {input} {params.dir} {params.sample} {params.OK}
+        """
+

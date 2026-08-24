@@ -11,7 +11,7 @@ rule readcounts_bins:
         rev = os.path.normpath(OUTPUT_DIR + "/Strand/reverse/{sample_name}/{sample_name}.bam"),
         rev_bai = os.path.normpath(OUTPUT_DIR + "/Strand/reverse/{sample_name}/{sample_name}.bam.bai")
     output:
-        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}_readcounts.bed")
+        os.path.normpath(OUTPUT_DIR + "/Profiles/{sample_name}/{sample_name}_readcounts.bed")
     params:
         bins = config["references"]["bins"]
     resources:

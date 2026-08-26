@@ -24,7 +24,7 @@ rule partition:
     threads:
         20
     conda:
-        CONDA_ENV_OKSEQ
+        CONDA_ENV_PARTITION
     shell:
         """
         Rscript {params.script}/partition.R {input} {params.dir} {params.sample} {params.IZ} {threads} {params.chrom}
@@ -106,7 +106,7 @@ rule partition_representation:
         OK = config["profile_parameters"]["OKseq"],
         script = os.path.normpath(PIPELINE_DIR + "/scripts/"),
     conda:
-        CONDA_ENV_OKSEQ
+        CONDA_ENV_PARTITION
     shell:
         """
         Rscript {params.script}/partition_representation.R {input} {params.dir} {params.sample} {params.OK}

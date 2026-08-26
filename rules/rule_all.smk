@@ -51,10 +51,6 @@ def get_targets():
         ]
 
     if config["steps"]["okseq"]:
-        targets["okseq"]=[
-            expand(os.path.normpath(OUTPUT_DIR + "/OKseqHMM/{sample_name}/{sample_name}_RFD_cutoff{thresh}_bs{bin_size}_sm_{win_s}kb.bedgraph"),sample_name=SAMPLE_NAME, thresh=config["okseqhmm_parameters"]["threshold"],bin_size=BINSIZE,win_s=config["okseqhmm_parameters"]["winS"]),
-            expand(os.path.normpath(OUTPUT_DIR + "/OKseqHMM/{sample_name}/{sample_name}_RFD_cutoff{thresh}_bs{bin_size}_sm_{win_s}kb.bw"),sample_name=SAMPLE_NAME, thresh=config["okseqhmm_parameters"]["threshold"],bin_size=BINSIZE,win_s=config["okseqhmm_parameters"]["winS"])
-        ]
         targets["rfd"]=[
             expand(os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}_IZ_position_raw.bed"),sample_name=SAMPLE_NAME),
             expand(os.path.normpath(OUTPUT_DIR + "/IZ_calcul/{sample_name}_rfd_sm15.bedgraph"),sample_name=SAMPLE_NAME),
